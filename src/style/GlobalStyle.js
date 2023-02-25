@@ -4,12 +4,19 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    height: 100vh;
 `
 
 export const Content = styled.div`
     display: flex;
     flex-direction: row;
-    min-width: 1000px;
-    min-height: 600px;
-    background: red;
+    min-width: 1500px;
+    min-height: 800px;
+
+    .canvas {
+        display: flex;
+        flex-direction: column;
+        margin-left: 50px;
+    }
 `

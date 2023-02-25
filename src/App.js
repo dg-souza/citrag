@@ -1,20 +1,18 @@
 import './App.css';
 
-import {
-  Container,
-  Content
-} from './style/GlobalStyle'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import PlayertList from './components/PlayerList';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
-    <Container>
-      <h1>Welcome to Citrag</h1>
-      <Content>
-        <PlayertList />
-      </Content>
-    </Container>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={ <LoginPage /> }/>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
