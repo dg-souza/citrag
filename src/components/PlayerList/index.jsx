@@ -4,10 +4,18 @@ import {
 
 import PlayerInfo from '../PlayerInfo'
 
-const PlayertList = () => {
+import { useEffect, useState } from 'react'
+
+const PlayertList = props => {
+    const {
+        users
+    } = props
+
+    const [user, setUser] = useState([])
+ 
     return(
         <Container>
-            <PlayerInfo />
+            <PlayerInfo users={ users } />
             <div className='line'></div>
         </Container>
     )
