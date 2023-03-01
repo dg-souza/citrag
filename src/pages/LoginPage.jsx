@@ -1,55 +1,73 @@
-import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ref, set, get, child } from 'firebase/database'
-import { db } from '../services/connection' 
+import { useDispatch } from 'react-redux'
+
+import io from 'socket.io-client'
 
 import {
     Container,
     LoginForm
 } from '../style/GlobalStyle'
 
+import CreateRoom from '../components/LoginComponents/CreateRoom'
+
+import { roomActions } from '../reducer/room'
+
 const LoginPage = () => {
     let navigation = useNavigate()
+    let dispatch = useDispatch()
 
-    const [nick, setNick] = useState('')
-    const [allNicks, setAllNicks] = useState([])
+    let idRoom = 0
+    let descarte = []
 
-    useEffect(() => {
-        const dbRef = ref(db)
+    const socket = io.connect('http://localhost:3001');
 
-        get(child(dbRef, 'users/'))
-            .then((snapshot) => {
-                if(snapshot.exists()) {
-                    console.log(snapshot.val())
-                    setAllNicks(snapshot.val())
-                } else {
-                    console.log('penis')
-                }
-            }).catch(err => {
-                console.log(err)
-            })
-    }, [])
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
-    const handleLogin = () => {
-        const descarte = []
-        descarte.push({ nickname: nick })
-        setAllNicks([...descarte])
-        console.log(allNicks)
-        set(ref(db, 'users/'), {
-            nickname: nick
-        }).then(res => {
-            console.log(res)
-        })
+    const createRooms = async (nick) => {
+        socket.emit('createRoom', nick)
+        socket.on('giveIdRoom', (data) => { idRoom = data })
+        
+        await sleep(2000)
+
+        dispatch(roomActions.createRoom({
+            idRoom: idRoom,
+            usersInfo: { idRoom: idRoom, users: [ { name: nick, points: 0 } ] },
+            type: 'creating'
+        }))
+
+        navigation(`/room/${idRoom}`)
+    }
+
+    const enterExistingRoom = async (roomCode, nick) => {
+        socket.emit('changeRoomUser', Number(roomCode), nick)
+        
+        socket.emit('getUsersById', Number(roomCode))
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        socket.on('sendUserById', (data) =>  { descarte = data} )
+        await sleep(2000)
+        console.log(descarte)
+
+        dispatch(roomActions.createRoom({
+            idRoom: Number(roomCode),
+            usersInfo: descarte,
+            type: 'creating'
+        }))
+
+        console.log(descarte)
+
+        navigation(`/room/${roomCode}`)
     }
 
     return (
         <Container>
             <LoginForm>
-                <span>Citrag</span>
-
-                <input onChange={(e) => setNick(e.target.value)} value={nick} type="text" placeholder='Nickname' />
-
-                <button onClick={() => handleLogin()}>START</button>
+                <CreateRoom createRoom={createRooms} enterExistingRoom={enterExistingRoom} />
             </LoginForm>
         </Container>
     )
