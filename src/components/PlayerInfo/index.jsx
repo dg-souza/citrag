@@ -15,8 +15,6 @@ const PlayerInfo = props => {
     } = props
 
     let users = useSelector((state) => state.room.usersInfo)
-    let roomCode = useSelector((state) => state.room.idRoom)
-    let type = useSelector((state) => state.room.type)
 
     const [allUsers, setAllUsers] = useState([])
 
@@ -48,7 +46,6 @@ const PlayerInfo = props => {
     useEffect(() => {
         setAllUsers(users)
         configureSocket()
-        console.log(roomCode)
     }, [])
 
     return (

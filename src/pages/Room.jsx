@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { db } from '../services/connection'
 import { collection, CollectionReference, getDocs } from 'firebase/firestore'
 
+import io from 'socket.io-client'
+
 import {
     Container,
     Content
@@ -14,6 +16,8 @@ import Canvas from '../components/Canvas';
 import Chat from '../components/Chat';
 
 const Room = () => {
+    const socket = io.connect('http://localhost:3001');
+
     let navigate = useNavigate()
     const userCollectionRef = collection(db, 'rooms')
 
@@ -26,6 +30,10 @@ const Room = () => {
     const getAllUsers = async () => {
         const data = await getDocs(userCollectionRef)
         setUsers(data.docs.map((doc) => ( { ...doc.data(), id: doc.id }) ))
+    }
+
+    const deleteUser = () => {
+        
     }
 
     return(
@@ -43,7 +51,7 @@ const Room = () => {
                             <Chat style={{ borderTopRightRadius: '5px', borderBottomRightRadius: '5px' }} />
                         </div>
 
-                        <button onClick={() => navigate('/')}>Logout</button>
+                        <button onClick={() => deleteUser()}>Logout</button>
                     </div>
                 </Content>
             </Container>            

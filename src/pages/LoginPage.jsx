@@ -33,8 +33,7 @@ const LoginPage = () => {
 
         dispatch(roomActions.createRoom({
             idRoom: idRoom,
-            usersInfo: { idRoom: idRoom, users: [ { name: nick, points: 0 } ] },
-            type: 'creating'
+            usersInfo: { idRoom: idRoom, users: [ { id: 1, name: nick, points: 0 } ] }
         }))
 
         navigation(`/room/${idRoom}`)
@@ -51,15 +50,11 @@ const LoginPage = () => {
 
         socket.on('sendUserById', (data) =>  { descarte = data} )
         await sleep(2000)
-        console.log(descarte)
 
         dispatch(roomActions.createRoom({
             idRoom: Number(roomCode),
-            usersInfo: descarte,
-            type: 'creating'
+            usersInfo: descarte
         }))
-
-        console.log(descarte)
 
         navigation(`/room/${roomCode}`)
     }
