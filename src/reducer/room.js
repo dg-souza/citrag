@@ -5,7 +5,8 @@ const roomSlicer = createSlice({
     initialState: {
         idRoom: '',
         usersInfo: [],
-        idUser: 0
+        idUser: 0,
+        nick: ''
     },
     reducers: {
         createRoom(state, action) {
@@ -14,6 +15,7 @@ const roomSlicer = createSlice({
             state.idRoom = newRoom.idRoom
             state.usersInfo = newRoom.usersInfo
             state.idUser = newRoom.idUser
+            state.nick = newRoom.nick
         }
     }
 })

@@ -10,54 +10,44 @@ export const Container = styled.div`
 
 export const LoginForm = styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-width: 500px;
-    min-height: 300px;
-    background: #fff;
+    flex-direction: row;
 
-    border-radius: 5px;
-    box-shadow: 0px 1px 4px 0px #000000;
-
-    span {
-        font-size: 50px;
-        color: #0a5efb;
-        margin-bottom: 30px;
-    }
-
-    input {
-        border: 1px solid #023ba6;
-        outline: none;
-        padding: 15px;
-        font-size: 16px;
-        margin-bottom: 20px;
-        color: #0a5efb;
-        border-radius: 4px;
-
-        &:hover {
-            cursor: pointer;
-        }
-
-        &:focus {
-            cursor: text;
-        }
-    }
-
-    button {
-        border: none;
-        padding: 10px;
-        font-size: 20px;
-        width: 60%;
-        background: #0a5efb;
+    .info-form {
+        display: flex;
+        min-width: 600px;
+        min-height: 450px;
+        background: #023ba6;
+        align-items: center;
+        justify-content: center;
         color: #fff;
-        cursor: pointer;
-        border-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-top-left-radius: 5px;
         transition: 0.2s;
+    }
 
-        &:hover {
-            background: #023ba6;
-            box-shadow: 0px 1px 4px 0px #000000;
+    .input-form {
+        display: flex;
+        background: #fff;
+        min-width: 300px;
+        min-height: 450px;
+        align-items: center;
+        justify-content: center;
+        transition: 0.2s;
+    }
+
+    @media(max-width: 920px) {
+        .info-form {
+            display: none;
+        }
+
+        .input-form {
+            min-width: 400px;
+        }
+    }
+
+    @media(max-width: 430px) {
+        .input-form {
+            min-width: 300px;
         }
     }
 `

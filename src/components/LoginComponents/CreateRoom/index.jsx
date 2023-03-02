@@ -20,7 +20,9 @@ const CreateRoom = props => {
                 isCreating ?
 
                     <CreateContainer>
-                        <h1>Create Room</h1>
+                        <h1>Welcome to Citrag</h1>
+
+                        <h2>Create Room</h2>
 
                         <input value={nick} onChange={(e) => setNick(e.target.value)} type="text" placeholder='NickName' />
 
@@ -31,7 +33,9 @@ const CreateRoom = props => {
                     </CreateContainer> :
 
                     <CreateContainer>
-                        <h1>Enter Room</h1>
+                        <h1>Welcome to Citrag</h1>
+
+                        <h2>Enter Room</h2>
 
                         <input value={nick} onChange={(e) => setNick(e.target.value)} type="text" placeholder='NickName' />
 

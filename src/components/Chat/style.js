@@ -11,6 +11,7 @@ export const Container = styled.div`
         padding: 0 15px;
         overflow: scroll;
         overflow-x: hidden;
+        margin-left: 10px;
     }
 
     span {
@@ -23,6 +24,7 @@ export const Container = styled.div`
         flex-direction: row;
         align-items: center;
         width: 100%;
+        margin-left: 10px;
 
         input {
             border: 1px solid #023ba6;

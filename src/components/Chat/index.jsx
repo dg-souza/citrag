@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 
 import {
     Container
@@ -6,40 +7,57 @@ import {
 
 const Chat = props => {
     const {
-        type,
-        style
+        socket
     } = props
 
-    const [aswern, setAswern] = useState('')
-    const [messages, setMessages] = useState([{ nickname: 'Davi', message: 'Teste' }, { nickname: 'Davi', message: 'Teste' }])
+    const idUser = useSelector((state) => state.room.idUser)
+    const userNick = useSelector((state) => state.room.nick)
+    const idRoom = useSelector((state) => state.room.idRoom)
+    let users = useSelector((state) => state.room.usersInfo)
+
+    const [message, setMessage] = useState('')
+    const [chatMessages, setChatMessages] = useState([])
 
     const handleAswern = () => {
-        let descarte = messages
-        descarte.push({ nickname: 'Davi', message: aswern })
-        setMessages([...descarte])
+        const messageObj = { idUser: idUser, nick: userNick, idRoom: Number(idRoom), message: message }
+        socket.emit('sendMessage', messageObj)
+        console.log(messageObj)
     }
 
+    async function receiveMessages() {
+        await socket.on('receiveMessageUpdate', (data) => { setChatMessages(data) })
+        console.log(chatMessages)
+    }
+
+    useEffect(() => {
+        setChatMessages(users)
+        receiveMessages()
+    }, [])
+
     return (
-        <Container style={style}>
+        <Container>
             <div className='message-form'>
-            {messages.map(item => {
-                return (
-                    <>
-                        <span><b>{ item.nickname }:</b> {item.message}</span>
-                    </>
-                )
-            })}
+                {
+                    chatMessages.messages !== undefined ?
+
+                    chatMessages.messages.map(item => {
+                        return(
+                            <>
+                                <span><b>{ item.user }: </b>{ item.message }</span>
+                            </>
+                        )
+                    })
+
+                    :
+
+                    <></>
+                }
             </div>
-            {type === 'aswern' ?
-                <div className='footer'>
-                    <input value={aswern} onChange={(e) => setAswern(e.target.value)} type="text" placeholder='Responda aqui...' />
-                    <button onClick={() => handleAswern()}>Teste</button>
-                </div> :
-                <div className='footer'>
-                    <input type="text" placeholder='Converse por aqui...' />
-                    <button>Teste</button>
-                </div>
-            }
+
+            <div className='footer'>
+                <input value={message} onChange={(e) => setMessage(e.target.value)} type="text" placeholder='Converse por aqui...' />
+                <button onClick={() => handleAswern()}>Enviar mensagem</button>
+            </div>
         </Container>
     )
 }

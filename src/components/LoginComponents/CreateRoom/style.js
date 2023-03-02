@@ -7,9 +7,13 @@ export const CreateContainer = styled.div`
     width: 100%;
     transition: 0.2s;
 
-    h1 {
+    h1, h2 {
         color: #0244bd;
         font-weight: normal;
+    }
+
+    h1 {
+        display: none;
     }
 
     input {
@@ -47,6 +51,18 @@ export const CreateContainer = styled.div`
             cursor: pointer;
             background: #003391;
             box-shadow: 0px 1px 4px 0px #000000;
+        }
+    }
+
+    @media(max-width: 920px) {
+        h1 {
+            display: flex;
+        }
+    }
+
+    @media(max-width: 430px) {
+        h1 {
+            font-size: 28px;
         }
     }
 `
