@@ -12,14 +12,12 @@ import CreateRoom from '../components/LoginComponents/CreateRoom'
 
 import { roomActions } from '../reducer/room'
 
-const LoginPage = () => {
+const LoginPage = ({ socket }) => {
     let navigation = useNavigate()
     let dispatch = useDispatch()
 
     let idRoom = 0
     let descarte = []
-
-    const socket = io.connect('http://localhost:3001');
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -33,7 +31,8 @@ const LoginPage = () => {
 
         dispatch(roomActions.createRoom({
             idRoom: idRoom,
-            usersInfo: { idRoom: idRoom, users: [ { id: 1, name: nick, points: 0 } ] }
+            usersInfo: { idRoom: idRoom, users: [ { id: 1, name: nick, points: 0 } ] },
+            idUser: 1
         }))
 
         navigation(`/room/${idRoom}`)
@@ -53,7 +52,8 @@ const LoginPage = () => {
 
         dispatch(roomActions.createRoom({
             idRoom: Number(roomCode),
-            usersInfo: descarte
+            usersInfo: descarte,
+            idUser: descarte.users.length
         }))
 
         navigation(`/room/${roomCode}`)

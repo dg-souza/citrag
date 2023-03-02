@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
-
-import { db } from '../services/connection'
-import { collection, CollectionReference, getDocs } from 'firebase/firestore'
+import { useDispatch, useSelector } from 'react-redux';
 
 import io from 'socket.io-client'
 
@@ -15,33 +13,32 @@ import PlayertList from '../components/PlayerList';
 import Canvas from '../components/Canvas';
 import Chat from '../components/Chat';
 
-const Room = () => {
-    const socket = io.connect('http://localhost:3001');
+const Room = ({ socket }) => {
+    const idRoom = useSelector((state) => state.room.idRoom)
+    const idUser = useSelector((state) => state.room.idUser)
 
     let navigate = useNavigate()
-    const userCollectionRef = collection(db, 'rooms')
 
-    const [user, setUsers] = useState([])
+    const handleDelete = () => {
+        socket.emit('deleteRoomUser', idRoom, idUser)
+
+        navigate('/')
+    }
+
+    const onUserDelete = async () => {
+        await socket.on('changeAfterDeleting', (data) => console.log(data))
+    }
 
     useEffect(() => {
-        getAllUsers()
+        onUserDelete()
     }, [])
-
-    const getAllUsers = async () => {
-        const data = await getDocs(userCollectionRef)
-        setUsers(data.docs.map((doc) => ( { ...doc.data(), id: doc.id }) ))
-    }
-
-    const deleteUser = () => {
-        
-    }
 
     return(
         <>
             <Container>
                 <h1 style={{ color: '#fff' }}>Welcome to Citrag</h1>
                 <Content>
-                    <PlayertList users={ user } />
+                    <PlayertList socket={socket}/>
                     <div className='canvas'>
                         <Canvas />
 
@@ -51,7 +48,7 @@ const Room = () => {
                             <Chat style={{ borderTopRightRadius: '5px', borderBottomRightRadius: '5px' }} />
                         </div>
 
-                        <button onClick={() => deleteUser()}>Logout</button>
+                        <button onClick={() => handleDelete()}>Logout</button>
                     </div>
                 </Content>
             </Container>            

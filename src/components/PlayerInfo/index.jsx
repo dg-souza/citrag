@@ -9,19 +9,15 @@ import {
 
 import PlayerIcon from '../../assets/playerIcon.png'
 
-const PlayerInfo = props => {
-    const {
-
-    } = props
+const PlayerInfo = ({ socket }) => {
 
     let users = useSelector((state) => state.room.usersInfo)
 
     const [allUsers, setAllUsers] = useState([])
 
-    const socket = io.connect('http://localhost:3001');
-
     function configureSocket() {
         socket.on('teste', (data) => { setAllUsers(data) })
+        console.log(allUsers)
     }
 
     // const getUsers = async () => {
