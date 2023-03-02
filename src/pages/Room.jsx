@@ -12,6 +12,7 @@ import {
 import PlayertList from '../components/PlayerList';
 import Canvas from '../components/Canvas';
 import Chat from '../components/Chat';
+import Aswerns from '../components/Aswerns';
 
 const Room = ({ socket }) => {
     const idRoom = useSelector((state) => state.room.idRoom)
@@ -43,9 +44,9 @@ const Room = ({ socket }) => {
                         <Canvas />
 
                         <div className='chat-forms'>
-                            <Chat type='aswern' style={{ borderTopLeftRadius: '5px', borderBottomLeftRadius: '5px' }}/>
-                            <div className='line'></div>
-                            <Chat style={{ borderTopRightRadius: '5px', borderBottomRightRadius: '5px' }} />
+                            <Aswerns socket={socket} />
+
+                            <Chat socket={socket} type='aswern' style={{ borderTopLeftRadius: '5px', borderBottomLeftRadius: '5px' }}/>
                         </div>
 
                         <button onClick={() => handleDelete()}>Logout</button>

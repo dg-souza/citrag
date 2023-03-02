@@ -32,7 +32,8 @@ const LoginPage = ({ socket }) => {
         dispatch(roomActions.createRoom({
             idRoom: idRoom,
             usersInfo: { idRoom: idRoom, users: [ { id: 1, name: nick, points: 0 } ] },
-            idUser: 1
+            idUser: 1,
+            nick: nick
         }))
 
         navigation(`/room/${idRoom}`)
@@ -50,10 +51,13 @@ const LoginPage = ({ socket }) => {
         socket.on('sendUserById', (data) =>  { descarte = data} )
         await sleep(2000)
 
+        console.log(descarte)
+
         dispatch(roomActions.createRoom({
             idRoom: Number(roomCode),
             usersInfo: descarte,
-            idUser: descarte.users.length
+            idUser: descarte.users.length,
+            nick: nick,
         }))
 
         navigation(`/room/${roomCode}`)
@@ -62,7 +66,13 @@ const LoginPage = ({ socket }) => {
     return (
         <Container>
             <LoginForm>
-                <CreateRoom createRoom={createRooms} enterExistingRoom={enterExistingRoom} />
+                <div className='info-form'>
+                    <h1>Welcome To Citrag</h1>
+                </div>
+
+                <div className='input-form'>
+                    <CreateRoom createRoom={createRooms} enterExistingRoom={enterExistingRoom} />
+                </div>
             </LoginForm>
         </Container>
     )
