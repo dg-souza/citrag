@@ -7,13 +7,8 @@ export const CreateContainer = styled.div`
     width: 100%;
     transition: 0.2s;
 
-    h1, h2 {
+    h2 {
         color: #0244bd;
-        font-weight: normal;
-    }
-
-    h1 {
-        display: none;
     }
 
     input {

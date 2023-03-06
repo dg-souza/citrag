@@ -16,7 +16,7 @@ const PlayerInfo = ({ socket }) => {
     const [allUsers, setAllUsers] = useState([])
 
     function configureSocket() {
-        socket.on('teste', (data) => { setAllUsers(data) })
+        socket.on('receiveMessageUpdate', (data) => { setAllUsers(data) })
         console.log(allUsers)
     }
 
@@ -40,6 +40,7 @@ const PlayerInfo = ({ socket }) => {
     // }
 
     useEffect(() => {
+        console.log(users)
         setAllUsers(users)
         configureSocket()
     }, [])

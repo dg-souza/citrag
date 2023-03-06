@@ -4,6 +4,8 @@ import {
     CreateContainer
 } from './style'
 
+import PlayerIcon from '../../../assets/playerIcon.png'
+
 const CreateRoom = props => {
     const {
         enterExistingRoom,
@@ -20,9 +22,9 @@ const CreateRoom = props => {
                 isCreating ?
 
                     <CreateContainer>
-                        <h1>Welcome to Citrag</h1>
+                        <h2>Enter Room</h2>
 
-                        <h2>Create Room</h2>
+                        <img src={PlayerIcon} alt="playerIcon" />
 
                         <input value={nick} onChange={(e) => setNick(e.target.value)} type="text" placeholder='NickName' />
 

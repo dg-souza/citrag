@@ -15,28 +15,47 @@ const Aswerns = props => {
     const idRoom = useSelector((state) => state.room.idRoom)
     let users = useSelector((state) => state.room.usersInfo)
 
-    const [message, setMessage] = useState('')
-    const [chatMessages, setChatMessages] = useState([])
+    const [aswern, setAswern] = useState('')
+    const [aswernsMessages, setAswernsMessages] = useState([])
 
     const handleAswern = () => {
-        
+        const objAswenr = { idRoom: idRoom, aswern: aswern.toLocaleLowerCase(), idUser: idUser, nick: userNick }
+
+        socket.emit('sendAswern', objAswenr)
     }
 
-    async function receiveMessages() {
-        
+    async function receiveAswerns() {
+        await socket.on('receiveMessageUpdate', (data) => { setAswernsMessages(data) })
+        console.log(aswernsMessages)
     }
 
     useEffect(() => {
+        setAswernsMessages(users)
+        receiveAswerns()
     }, [])
 
     return (
         <Container>
             <div className='message-form'>
-                <span>AAAAAAAAAAAAAAAAAAAAAAAAA</span>
+                {
+                    aswernsMessages.aswerns !== undefined ?
+
+                    aswernsMessages.aswerns.map(item => {
+                        return(
+                            <>
+                                <span><b>{ item.user }: </b>{ item.aswern }</span>
+                            </>
+                        )
+                    })
+
+                    :
+
+                    <></>
+                }
             </div>
 
             <div className='footer'>
-                <input value={message} onChange={(e) => setMessage(e.target.value)} type="text" placeholder='Converse por aqui...' />
+                <input value={aswern} onChange={(e) => setAswern(e.target.value)} type="text" placeholder='Converse por aqui...' />
                 <button onClick={() => handleAswern()}>Enviar mensagem</button>
             </div>
         </Container>

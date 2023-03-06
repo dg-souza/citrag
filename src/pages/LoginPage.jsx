@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
@@ -12,9 +13,15 @@ import CreateRoom from '../components/LoginComponents/CreateRoom'
 
 import { roomActions } from '../reducer/room'
 
+import PlayerIcon from '../assets/playerIcon.png'
+
 const LoginPage = ({ socket }) => {
     let navigation = useNavigate()
     let dispatch = useDispatch()
+
+    const [nick, setNick] = useState('')
+    const [anotherNick, setAnotherNick] = useState('')
+    const [roomCode, setRoomCode] = useState('')
 
     let idRoom = 0
     let descarte = []
@@ -23,15 +30,15 @@ const LoginPage = ({ socket }) => {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    const createRooms = async (nick) => {
+    const createRooms = async () => {
         socket.emit('createRoom', nick)
         socket.on('giveIdRoom', (data) => { idRoom = data })
-        
+
         await sleep(2000)
 
         dispatch(roomActions.createRoom({
             idRoom: idRoom,
-            usersInfo: { idRoom: idRoom, users: [ { id: 1, name: nick, points: 0 } ] },
+            usersInfo: { idRoom: idRoom, users: [{ id: 1, name: nick, points: 0 }] },
             idUser: 1,
             nick: nick
         }))
@@ -39,16 +46,16 @@ const LoginPage = ({ socket }) => {
         navigation(`/room/${idRoom}`)
     }
 
-    const enterExistingRoom = async (roomCode, nick) => {
-        socket.emit('changeRoomUser', Number(roomCode), nick)
-        
+    const enterExistingRoom = async () => {
+        socket.emit('changeRoomUser', Number(roomCode), anotherNick)
+
         socket.emit('getUsersById', Number(roomCode))
 
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
 
-        socket.on('sendUserById', (data) =>  { descarte = data} )
+        socket.on('sendUserById', (data) => { descarte = data })
         await sleep(2000)
 
         console.log(descarte)
@@ -57,7 +64,7 @@ const LoginPage = ({ socket }) => {
             idRoom: Number(roomCode),
             usersInfo: descarte,
             idUser: descarte.users.length,
-            nick: nick,
+            nick: anotherNick,
         }))
 
         navigation(`/room/${roomCode}`)
@@ -67,11 +74,29 @@ const LoginPage = ({ socket }) => {
         <Container>
             <LoginForm>
                 <div className='info-form'>
-                    <h1>Welcome To Citrag</h1>
+                    <h2>Create</h2>
+
+                    <img src={PlayerIcon} alt="playerIcon" />
+
+                    <input value={nick} onChange={(e) => setNick(e.target.value)} type="text" placeholder='NickName' />
+
+                    <button className='ic-play' onClick={() => createRooms()}><strong>CREATE ROOM</strong></button>
                 </div>
 
-                <div className='input-form'>
-                    <CreateRoom createRoom={createRooms} enterExistingRoom={enterExistingRoom} />
+                <div className='or'>
+                    <span>OR</span>
+                </div>
+
+                <div className='info-room'>
+                    <h2>Enter</h2>
+
+                    <img src={PlayerIcon} alt="playerIcon" />
+
+                    <input value={anotherNick} onChange={(e) => setAnotherNick(e.target.value)} type="text" placeholder='NickName' />
+
+                    <input value={roomCode} onChange={(e) => setRoomCode(e.target.value)} type="text" placeholder='Room Code' />
+
+                    <button className='ic-join' onClick={() => enterExistingRoom()}><strong>JOIN ROOM</strong></button>
                 </div>
             </LoginForm>
         </Container>
