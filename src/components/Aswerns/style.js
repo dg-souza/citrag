@@ -61,4 +61,10 @@ export const Container = styled.div`
             }
         }
     }
+    
+    @media(max-width: 1366px){
+        .message-form{
+            max-height: 124px;
+            min-height: 124px;
+        }
 `

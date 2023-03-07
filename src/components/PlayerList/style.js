@@ -9,4 +9,9 @@ export const Container = styled.div`
 
     border-radius: 5px;
     box-shadow: 0px 1px 4px 0px #000000;
+
+    @media(max-width:1366px){
+        min-width: 200px;
+        height: 532px;
+    }
 `

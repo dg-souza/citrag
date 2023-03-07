@@ -11,7 +11,17 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100vh;  //enquadra no navegador
+    width: 100vw;
+
+    @media(max-width: 1366px){
+        height: 100%;
+        width: 100%;
+
+        h1 {
+            font-size: 24px
+        }
+    }
 `
 
 export const LoginForm = styled.div`
@@ -165,8 +175,8 @@ export const LoginForm = styled.div`
 export const Content = styled.div`
     display: flex;
     flex-direction: row;
-    min-width: 1500px;
-    min-height: 800px;
+    min-width: 1500px;  /* enquadra no navegador
+    min-height: 800px;  */
 
     .canvas {
         display: flex;
@@ -181,6 +191,25 @@ export const Content = styled.div`
             .line {
                 width: 1px;
                 background: black;
+            }
+        }
+    }
+
+    @media(max-width: 1366px){
+        max-width: 1366px;
+        justify-content:center;
+
+        .canvas{
+            margin-left: 25px;
+
+            .footer {
+                width: auto;
+                margin-bottom: 0;
+
+                button {
+                    height: 40px;
+                    font-size: 12px;
+                }
             }
         }
     }

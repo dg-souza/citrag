@@ -41,7 +41,7 @@ const Canvas = () => {
         <Container>
             <Stage
                 width={1000}
-                height={500}
+                height={300}
                 style={{ backgroundColor: '#fff', borderRadius: '5px' }}
                 onMouseDown={handleMouseDown}
                 onMousemove={handleMouseMove}
