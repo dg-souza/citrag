@@ -1,17 +1,24 @@
 import styled from "styled-components";
 
-export const Container = styled.div`  
+export const Container = styled.div` 
+    background: #fff;
+    padding: 5px;
+    border: solid 1px #000;
+    border-radius: 5px;
+    margin: 5px 0 5px 0;
+
     .message-form {
         display: flex;
         flex-direction: column;
         background: #fff;
-        min-width: 500px;
+        min-width: 450px;
         max-height: 150px;
         min-height: 150px;
         padding: 0 15px;
         overflow: scroll;
         overflow-x: hidden;
-        margin-left: 10px;
+
+        border: solid 1px #000;
     }
 
     span {
@@ -24,14 +31,12 @@ export const Container = styled.div`
         flex-direction: row;
         align-items: center;
         width: 100%;
-        margin-left: 10px;
 
         input {
             border: 1px solid #023ba6;
             outline: none;
             padding: 8px;
             font-size: 12px;
-            margin-bottom: 20px;
             color: #0a5efb;
             border-radius: 4px;
             width: 80%;
@@ -65,9 +70,17 @@ export const Container = styled.div`
     }
 
     @media(max-width: 1366px){
+
         .message-form{
-            max-height: 124px;
-            min-height: 124px;
+            max-height: 160px;
+            min-height: 160px;
+        }
+
+        .footer {
+
+            button{
+                margin-bottom: 0;
+            }
         }
     }
 `

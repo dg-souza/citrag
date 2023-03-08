@@ -37,7 +37,7 @@ const Room = ({ socket }) => {
     return(
         <>
             <Container>
-                <h1 style={{ color: '#fff' }}>Welcome to Citrag</h1>
+                {/* <h1 style={{ color: '#fff' }}>Welcome to Citrag</h1> */}
                 <Content>
                     <PlayertList socket={socket}/>
                     <div className='canvas'>

@@ -15,7 +15,7 @@ export const Container = styled.div`
     width: 100vw;
 
     @media(max-width: 1366px){
-        height: 100%;
+        height: 100vh;
         width: 100%;
 
         h1 {
@@ -140,6 +140,11 @@ export const LoginForm = styled.div`
         align-items: center;
         justify-content: center;
         transition: 0.2s;
+    }
+
+    @media(max-width: 1366px){
+        width: 1000px;
+        height: 500px;
     }
 
     @media(max-width: 1220px) {
