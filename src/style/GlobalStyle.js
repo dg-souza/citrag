@@ -4,15 +4,32 @@ import IconPlay from '../assets/ic_play.png'
 
 import IconJoin from '../assets/ic_join.png'
 
-import IconNick from '../assets/ic_nick.png'
-
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;  //enquadra no navegador
-    width: 100vw;
+    height: 100%;
+    width: 100%;
+
+    button {
+        border: none;
+        background-color: #1351c2;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 12px;
+        transition: 0.2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+
+        &:hover {
+            cursor: pointer;
+            background: #003391;
+            box-shadow: 0px 1px 4px 0px #000000;
+        }
+    }
 
     @media(max-width: 1366px){
         height: 100vh;
@@ -29,20 +46,25 @@ export const LoginForm = styled.div`
     flex-direction: row;
     background: #fff;
     align-items: center;
-    justify-content: center;
     width: 1200px;
     height: 600px;
     border-radius: 5px;
 
     .info-form, .info-room {
         display: flex;
-        width: 100%;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
         border-bottom-left-radius: 5px;
         border-top-left-radius: 5px;
         transition: 0.2s;
+
+        height: 100%;
+        width: 100%;
+        
+        img{
+            height: 140px;
+            width: 140px;
+        }
 
         input {
             border: 1px solid #0244bd;
@@ -57,6 +79,8 @@ export const LoginForm = styled.div`
 
         h2 {
             color: #0244bd;
+
+            margin: 40px 0;
         }
 
         button {

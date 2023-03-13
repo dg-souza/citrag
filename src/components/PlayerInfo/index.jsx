@@ -58,7 +58,7 @@ const PlayerInfo = ({ socket }) => {
                                 <div className='item'>
                                     <img src={PlayerIcon} alt="playerIcon" />
                                     <div className='item-info'>
-                                        <span>{item.name}</span>
+                                        <span><b>{item.name}</b></span>
                                         <span>{item.points}</span>
                                     </div>
                                 </div>

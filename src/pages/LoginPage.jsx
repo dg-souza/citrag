@@ -74,13 +74,13 @@ const LoginPage = ({ socket }) => {
         <Container>
             <LoginForm>
                 <div className='info-form'>
-                    <h2>Create</h2>
+                    <h2>Create a room</h2>
 
                     <img src={PlayerIcon} alt="playerIcon" />
 
                     <input value={nick} onChange={(e) => setNick(e.target.value)} type="text" placeholder='NickName' />
 
-                    <button className='ic-play' onClick={() => createRooms()}><strong>CREATE ROOM</strong></button>
+                    <button className='ic-play' onClick={() => createRooms()}><strong>PLAY</strong></button>
                 </div>
 
                 <div className='or'>
@@ -88,7 +88,7 @@ const LoginPage = ({ socket }) => {
                 </div>
 
                 <div className='info-room'>
-                    <h2>Enter</h2>
+                    <h2>Join your friends</h2>
 
                     <img src={PlayerIcon} alt="playerIcon" />
 
@@ -96,7 +96,7 @@ const LoginPage = ({ socket }) => {
 
                     <input value={roomCode} onChange={(e) => setRoomCode(e.target.value)} type="text" placeholder='Room Code' />
 
-                    <button className='ic-join' onClick={() => enterExistingRoom()}><strong>JOIN ROOM</strong></button>
+                    <button className='ic-join' onClick={() => enterExistingRoom()}><strong>PLAY</strong></button>
                 </div>
             </LoginForm>
         </Container>

@@ -56,7 +56,7 @@ const Chat = props => {
 
             <div className='footer'>
                 <input value={message} onChange={(e) => setMessage(e.target.value)} type="text" placeholder='Converse por aqui...' />
-                <button onClick={() => handleAswern()}>Enviar mensagem</button>
+                <button onClick={() => handleAswern()}>Send</button>
             </div>
         </Container>
     )

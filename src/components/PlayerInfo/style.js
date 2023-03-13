@@ -20,11 +20,16 @@ padding: 10px;
             display: flex;
             flex-direction: column;
             margin-left: 5px;
+            align-items: center;
 
             h1 {
                 margin: 0;
                 font-size: 26px;
                 font-weight: normal;
+            }
+
+            span{
+                margin: 5px 0;
             }
         }
     }

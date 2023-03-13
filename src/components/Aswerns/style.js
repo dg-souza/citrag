@@ -20,6 +20,11 @@ export const Container = styled.div`
         overflow-x: hidden;
 
         border: solid 1px #000;
+        border-radius: 5px;
+
+        ::-webkit-scrollbar{
+            display: none;
+        }
     }
 
     span {
@@ -40,6 +45,7 @@ export const Container = styled.div`
             font-size: 12px;
             color: #0a5efb;
             border-radius: 4px;
+
             width: 80%;
     
             &:hover {
@@ -53,10 +59,8 @@ export const Container = styled.div`
 
         button {
             border: none;
-            padding: 8px;
             width: 20%;
-            margin-bottom: 20px;
-            margin-left: 10px;
+            max-height: 32px;
             font-size: 15px;
             background: #0a5efb;
             color: #fff;
@@ -78,7 +82,6 @@ export const Container = styled.div`
         }
 
         .footer {
-
             button{
                 margin-bottom: 0;
             }

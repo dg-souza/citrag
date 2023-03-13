@@ -56,7 +56,7 @@ const Aswerns = props => {
 
             <div className='footer'>
                 <input value={aswern} onChange={(e) => setAswern(e.target.value)} type="text" placeholder='Converse por aqui...' />
-                <button onClick={() => handleAswern()}>Enviar mensagem</button>
+                <button onClick={() => handleAswern()}>Send</button>
             </div>
         </Container>
     )
